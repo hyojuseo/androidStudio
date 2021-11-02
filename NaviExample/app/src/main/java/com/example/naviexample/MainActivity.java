@@ -4,10 +4,12 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -49,9 +51,42 @@ public class MainActivity extends AppCompatActivity {
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
                 .setOpenableLayout(drawer)
                 .build();
+
+        //host가 될 fragment(content_main)을 불러온다.
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+
+        //NavController와 mAppBarConfiguration에 맞춰 ActionBar(title)를 설정해준다.
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+
+        //navigationView를 navController가 사용할 수 있도록 설정해준다.
+        //Navigation의 item을 클릭시 fragment가 변경되도록 설정해주는 것.
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        //각 메뉴를 클릭했을때 해당 메뉴의 화면이 맞는지 Toast를 띄움
+        /*navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                item.setChecked(true);
+                drawer.closeDrawers();
+
+                switch(item.getItemId()){
+                    case R.id.nav_home:
+                        showMsg("home");
+                        return true;
+                    case R.id.nav_gallery:
+                        showMsg("gallery");
+                        return true;
+                    case R.id.nav_slideshow:
+                        showMsg("slideshow");
+                        return true;
+                }
+                return false;
+            }
+        });*/
+    }
+
+    private void showMsg(String msg){
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
     //hyoju
@@ -92,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //NavController가 mAppBarConfiguration을 통해 Up버튼 클릭시 수행할 action을 결정하도록 설정함
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -100,22 +136,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //hyoju
-    //각각 메뉴버튼을 클릭했을 때 이루어지는 액션을 여기서 실행
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
+    //각각 메뉴버튼을 클릭했을 때 이루어지는 액션을 여기서 실행(구버전)
+    //@SuppressWarnings("StatementWithEmptyBody")
+   /* @Override
     public boolean onNavigationItemSelected(MenuItem item){
-        int id = item.getItemId();
-
-        if(id == R.id.nav_home){
-            //empty
-        }else if(id == R.id.nav_gallery){
-            //empty
-        }else if(id == R.id.nav_slideshow){
-            //empty
+        switch(item.getItemId()){
+            case R.id.nav_home:
+                Toast.makeText(this,"홈입니다",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_gallery:
+                Toast.makeText(this,"갤러리입니다",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_slideshow:
+                Toast.makeText(this,"슬라이드입니다",Toast.LENGTH_SHORT).show();
+                break;
         }
 
         DrawerLayout drawer = (DrawerLayout)findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
+    }*/
+
+
 }
