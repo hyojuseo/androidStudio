@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
 
             if(exif != null){
                 exifOrientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-                exifDegree = exifOrientationToDgress(exifOrientation);
+                exifDegree = exifOrientationToDegress(exifOrientation);
             } else{
                 exifDegree = 0;
             }
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //이미지 회전
-    private int exifOrientationToDgress(int exifOrientation){
+    private int exifOrientationToDegress(int exifOrientation){
         if(exifOrientation == ExifInterface.ORIENTATION_ROTATE_90){
             return 90;
         } else if(exifOrientation == ExifInterface.ORIENTATION_ROTATE_180){
